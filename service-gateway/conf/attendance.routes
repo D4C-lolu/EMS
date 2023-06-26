@@ -1,0 +1,4 @@
+POST           /checkin/:userToken                                               controllers.AttendanceController.checkIn(userToken:String)
+POST           /checkout/:userToken                                              controllers.AttendanceController.checkIn(userToken:String)
+GET            /daily                                                            controllers.AttendanceController.getDailyAttendance()
+GET            /user/:userId                                                     controllers.AttendanceController.getUserAttendance(userId:String)

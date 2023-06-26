@@ -1,3 +1,4 @@
+
 package com.encentral.entities;
 
 import javax.persistence.*;
@@ -10,7 +11,10 @@ import java.sql.Date;
 @Entity
 @Table(name = "attendance")
 @NamedQueries({
-        @NamedQuery(name = "JpaAttendance.findAll", query = "SELECT j FROM JpaAttendance j")
+        @NamedQuery(name = "JpaAttendance.findAll", query = "SELECT j FROM JpaAttendance j"),
+        @NamedQuery(name="JpaAttendance.checkAlreadySignedIn", query="SELECT j FROM JpaAttendance j WHERE j.date =: currentDate AND j.user.userToken = currentUserToken "),
+        @NamedQuery(name="JpaAttendance.getDaily",query="SELECT j FROM JpaAttendance j WHERE j.date =:currentDate"),
+        @NamedQuery(name="JpaAttendance.getUser",query ="SELECT j FROM JpaAttendance j WHERE j.user.userId =:userId")
 })
 public class JpaAttendance implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -18,8 +22,7 @@ public class JpaAttendance implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "attendance_id",unique = true)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long attendanceId;
+    private String attendanceId;
 
     @Basic(optional = false)
     @Column(name = "attendance_date")
@@ -38,12 +41,17 @@ public class JpaAttendance implements Serializable {
     public JpaAttendance() {
     }
 
-    public JpaAttendance(JpaUser user) {
+    public JpaAttendance(String attendanceId, JpaUser user) {
+        this.attendanceId = attendanceId;
         this.user = user;
     }
 
-    public Long getAttendanceId() {
+    public String getAttendanceId() {
         return attendanceId;
+    }
+
+    public void setAttendanceId(String attendanceId) {
+        this.attendanceId = attendanceId;
     }
 
     public Date getDate() {

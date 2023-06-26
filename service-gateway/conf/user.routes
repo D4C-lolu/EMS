@@ -1,0 +1,6 @@
+POST            /                               controllers.UserController.addUser()
+GET             /:token                         controllers.UserController.getAllUsers()
+PATCH           /update-user                    controllers.UserController.updateUser()
+GET             /user/:userId                   controllers.UserController.getUserById(userId:String)
+DELETE          /user/:id                       controllers.UserController.deleteUser(userToken:String, userId:String)
+POST            /signin                         controllers.UserController.signUserIn()

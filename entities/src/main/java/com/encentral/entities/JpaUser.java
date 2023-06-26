@@ -5,12 +5,16 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
+import javax.validation.constraints.Email;
 
 
 @Entity
 @Table(name = "user")
 @NamedQueries({
-        @NamedQuery(name = "JpaUser.findAll", query = "SELECT j FROM JpaUser j")
+        @NamedQuery(name = "JpaUser.findAll", query = "SELECT j FROM JpaUser j"),
+        @NamedQuery(name="JpaUser.findByToken", query = "SELECT j FROM JpaUser j WHERE j.userToken =:token "),
+        @NamedQuery(name="JpaUser.findByEmail",query ="SELECT j FROM JpaUser j WHERE j.email =:email"),
+        @NamedQuery(name="JpaUser.resetToken",query="UPDATE JpaUser SET userToken = :newToken WHERE email =:userEmail")
 })
 public class JpaUser implements Serializable {
 
@@ -18,9 +22,8 @@ public class JpaUser implements Serializable {
 
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", unique = true)
-    private Long userId;
+    private String userId;
 
     @Basic(optional = false)
     @Column(name = "first_name")
@@ -32,6 +35,7 @@ public class JpaUser implements Serializable {
 
     @Basic(optional = false)
     @Column(name = "email", unique = true)
+    @Email
     private String email;
 
     @Basic(optional = false)
@@ -55,7 +59,8 @@ public class JpaUser implements Serializable {
     }
 
 
-    public JpaUser(String firstName, String lastName, String email, String password, String userToken, Role role, List<JpaAttendance> jpaAttendanceList) {
+    public JpaUser(String userId,String firstName, String lastName, String email, String password, String userToken, Role role, List<JpaAttendance> jpaAttendanceList) {
+        this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -65,11 +70,11 @@ public class JpaUser implements Serializable {
         this.jpaAttendanceList = jpaAttendanceList;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
