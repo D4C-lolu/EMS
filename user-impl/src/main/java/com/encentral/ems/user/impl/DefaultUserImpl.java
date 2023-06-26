@@ -19,6 +19,14 @@ public class DefaultUserImpl implements IUser {
     @Inject
     public DefaultUserImpl(JPAApi jpaApi) {
         this.jpaApi = jpaApi;
+
+        //Add Admin
+        //email: admin@encentral.com and password: admin
+//        this.jpaApi.withTransaction(em->{
+//            String id =
+//            JpaUser jpaUser = new JpaUser()
+//        });
+
     }
 
     @Override

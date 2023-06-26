@@ -1,7 +1,7 @@
 CREATE TYPE role as ENUM("EMPLOYEE","ADMIN");
 
 CREATE TABLE public.user(
-    user_id SERIAL NOT NULL UNIQUE,
+    user_id VARCHAR(60) NOT NULL UNIQUE,
     first_name VARCHAR(60) NOT NULL,
     last_name VARCHAR(60) NOT NULL,
     email VARCHAR(60) NOT NULL UNIQUE,
@@ -13,7 +13,7 @@ CREATE TABLE public.user(
 );
 
 CREATE TABLE public.attendance(
-    attendance_id SERIAL NOT NULL UNIQUE,
+    attendance_id VARCHAR(60) NOT NULL UNIQUE,
     attendance_date DATE NOT NULL,
     signin_time TIME,
     signout_time TIME,
@@ -21,3 +21,6 @@ CREATE TABLE public.attendance(
     CONSTRAINT user_attendance_fk FOREIGN KEY(user_id) REFERENCES user(user_id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE
 
 );
+
+INSERT INTO public.user(user_id,first_name,last_name,email,password,user_token,user_role,date_added)
+VALUES ("002020202","Admin","istrator", "admin@encentral.com", "admin","3rv2gy54yty54tvc4r","ADMIN",);
