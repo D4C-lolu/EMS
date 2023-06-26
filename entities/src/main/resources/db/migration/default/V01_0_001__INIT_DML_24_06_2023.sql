@@ -23,4 +23,4 @@ CREATE TABLE public.attendance(
 );
 
 INSERT INTO public.user(user_id,first_name,last_name,email,password,user_token,user_role,date_added)
-VALUES ("002020202","Admin","istrator", "admin@encentral.com", "admin","3rv2gy54yty54tvc4r","ADMIN",);
+VALUES ("002020202","Admin","istrator", "admin@encentral.com", "admin","3rv2gy54yty54tvc4r","ADMIN","2023-06-25);
